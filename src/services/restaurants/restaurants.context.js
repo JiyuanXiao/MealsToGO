@@ -7,7 +7,7 @@ import { Children } from "react/cjs/react.production.min";
 
 export const RestaurantsConext = createContext();
 
-export const RestaurantsConextProvider = (children) => {
+export const RestaurantsConextProvider = ({ children }) => {
   return (
     <RestaurantsConext.Provider value={{ restaurants: [1, 2, 3] }}>
       {children}
