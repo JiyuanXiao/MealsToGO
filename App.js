@@ -10,8 +10,9 @@ import { Lato_400Regular } from "@expo-google-fonts/lato";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-
 import { View, Text } from "react-native";
+
+import { RestaurantsConextProvider } from "./src/services/restaurants/restaurants.context";
 
 const TAB_ICON = {
   Restaurants: "restaurant",
@@ -82,9 +83,11 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <MyTabs />
-        </NavigationContainer>
+        <RestaurantsConextProvider>
+          <NavigationContainer>
+            <MyTabs />
+          </NavigationContainer>
+        </RestaurantsConextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
