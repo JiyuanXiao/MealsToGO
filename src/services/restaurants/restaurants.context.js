@@ -18,6 +18,7 @@ export const RestaurantsConextProvider = ({ children }) => {
         .then(restaurantsTransform)
         .then((result) => {
           setRestaurants(result);
+          setIsLoading(false);
         })
         .catch((err) => {
           setError(err);
