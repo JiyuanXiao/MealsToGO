@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 
 import { RestaurantsConextProvider } from "./src/services/restaurants/restaurants.context";
+import { LocationContextSProvider } from "./src/services/location/location.context";
 
 const TAB_ICON = {
   Restaurants: "restaurant",
@@ -83,11 +84,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <RestaurantsConextProvider>
-          <NavigationContainer>
-            <MyTabs />
-          </NavigationContainer>
-        </RestaurantsConextProvider>
+        <LocationContextSProvider>
+          <RestaurantsConextProvider>
+            <NavigationContainer>
+              <MyTabs />
+            </NavigationContainer>
+          </RestaurantsConextProvider>
+        </LocationContextSProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
