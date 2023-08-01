@@ -4,7 +4,9 @@ import { locations } from "./location.mock";
 export const locaitonRequest = (searchTerm) => {
   return new Promise((resolve, reject) => {
     const locationMock = locations[searchTerm];
-    if (!locationMock) reject("not found");
+    if (!locationMock) {
+      reject("not found");
+    }
     resolve(locationMock);
   });
 };
