@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ActivityIndicator } from "react-native-paper";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import styled from "styled-components/native";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -23,8 +23,9 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const RestaurantSceen = () => {
+export const RestaurantSceen = ({ navigation }) => {
   const { restaurants, isLoading } = useContext(RestaurantsConext);
+  console.log(navigation);
   return (
     <>
       {isLoading && (
@@ -37,9 +38,13 @@ export const RestaurantSceen = () => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large">
-              <RestaurantInfoCard restaurant={item} />
-            </Spacer>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("RestaurantDetail")}
+            >
+              <Spacer position="bottom" size="large">
+                <RestaurantInfoCard restaurant={item} />
+              </Spacer>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.name}
