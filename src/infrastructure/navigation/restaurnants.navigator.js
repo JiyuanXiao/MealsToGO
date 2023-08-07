@@ -3,25 +3,26 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import { RestaurantSceen } from "../../features/restaurants/screens/restaurant.screen";
-
-import { Text } from "react-native";
+import { RestaurantScreen } from "../../features/restaurants/screens/restaurant.screen";
+import { RestaurantsDetailScreen } from "../../features/restaurants/screens/restaurants-detail.screen";
 
 const RestaurantStack = createStackNavigator();
 
 export const RestaurantsNavigator = () => {
   return (
     <RestaurantStack.Navigator
-      headerMode="none"
-      screenOptions={{ ...TransitionPresets.ModalPresentationIOS }}
+      screenOptions={{
+        ...TransitionPresets.ModalPresentationIOS,
+        headerShown: false,
+      }}
     >
       <RestaurantStack.Screen
         name="RestaurantScreen"
-        component={RestaurantSceen}
+        component={RestaurantScreen}
       />
       <RestaurantStack.Screen
         name="RestaurantDetail"
-        component={() => <Text>Restaurant Detail</Text>}
+        component={RestaurantsDetailScreen}
       />
     </RestaurantStack.Navigator>
   );
