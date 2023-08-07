@@ -2,7 +2,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+
+import { SafeArea } from "../../components/utility/safr-area.component";
 
 import { RestaurantsNavigator } from "./restaurnants.navigator";
 
@@ -26,17 +28,17 @@ const createScreenOptions = ({ route }) => {
 
 const SettingsScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <SafeArea>
       <Text>Settings</Text>
-    </View>
+    </SafeArea>
   );
 };
 
 const MapScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <SafeArea>
       <Text>Map</Text>
-    </View>
+    </SafeArea>
   );
 };
 
