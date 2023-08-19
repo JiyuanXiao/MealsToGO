@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text } from "react-native";
 
 import { SafeArea } from "../../components/utility/safr-area.component";
+import { MapScreen } from "../../features/map/screens/map.screen";
 
 import { RestaurantsNavigator } from "./restaurnants.navigator";
 
@@ -30,14 +31,6 @@ const SettingsScreen = () => {
   return (
     <SafeArea>
       <Text>Settings</Text>
-    </SafeArea>
-  );
-};
-
-const MapScreen = () => {
-  return (
-    <SafeArea>
-      <Text>Map</Text>
     </SafeArea>
   );
 };
