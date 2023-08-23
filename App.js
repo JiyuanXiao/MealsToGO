@@ -8,6 +8,7 @@ import { Lato_400Regular } from "@expo-google-fonts/lato";
 
 import { RestaurantsConextProvider } from "./src/services/restaurants/restaurants.context";
 import { LocationContextSProvider } from "./src/services/location/location.context";
+import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
 
 import { Navigation } from "./src/infrastructure/navigation/index";
 
@@ -27,11 +28,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextSProvider>
-          <RestaurantsConextProvider>
-            <Navigation />
-          </RestaurantsConextProvider>
-        </LocationContextSProvider>
+        <FavouritesContextProvider>
+          <LocationContextSProvider>
+            <RestaurantsConextProvider>
+              <Navigation />
+            </RestaurantsConextProvider>
+          </LocationContextSProvider>
+        </FavouritesContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
