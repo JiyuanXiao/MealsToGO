@@ -9,8 +9,21 @@ import { Lato_400Regular } from "@expo-google-fonts/lato";
 import { RestaurantsConextProvider } from "./src/services/restaurants/restaurants.context";
 import { LocationContextSProvider } from "./src/services/location/location.context";
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 import { Navigation } from "./src/infrastructure/navigation/index";
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDMyJS-zorGnprXCSwClEsy1UKX2IAz31g",
+  authDomain: "mealstogo-8c501.firebaseapp.com",
+  projectId: "mealstogo-8c501",
+  storageBucket: "mealstogo-8c501.appspot.com",
+  messagingSenderId: "810400728229",
+  appId: "1:810400728229:web:435c6000d73bcd8a32b94c",
+};
+
+const app = initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = useFonts({
@@ -28,13 +41,15 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextSProvider>
-            <RestaurantsConextProvider>
-              <Navigation />
-            </RestaurantsConextProvider>
-          </LocationContextSProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextSProvider>
+              <RestaurantsConextProvider>
+                <Navigation />
+              </RestaurantsConextProvider>
+            </LocationContextSProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
