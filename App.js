@@ -23,7 +23,8 @@ const firebaseConfig = {
   appId: "1:810400728229:web:435c6000d73bcd8a32b94c",
 };
 
-const app = initializeApp(firebaseConfig);
+//const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = useFonts({

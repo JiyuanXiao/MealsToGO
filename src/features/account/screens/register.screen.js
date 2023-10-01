@@ -1,17 +1,22 @@
 import React from "react";
-import { View, Text } from "react-native";
 import {
   AccountBackground,
   AccountCover,
   AccountContainer,
+  AuthButton,
 } from "../components/account.styles";
+import { Spacer } from "../../../components/spacer/spacer.component";
 
-export const RegisterScreen = () => {
+export const RegisterScreen = ({ navigation }) => {
   return (
     <AccountBackground>
       <AccountCover />
       <AccountContainer>
-        <Text>Register Screen</Text>
+        <Spacer size="large">
+          <AuthButton mode="contained" onPress={() => navigation.goBack()}>
+            Back
+          </AuthButton>
+        </Spacer>
       </AccountContainer>
     </AccountBackground>
   );
