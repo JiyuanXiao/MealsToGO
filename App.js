@@ -6,9 +6,6 @@ import { theme } from "./src/infrastructure/theme";
 import { useFonts, Oswald_400Regular } from "@expo-google-fonts/oswald";
 import { Lato_400Regular } from "@expo-google-fonts/lato";
 
-import { RestaurantsConextProvider } from "./src/services/restaurants/restaurants.context";
-import { LocationContextSProvider } from "./src/services/location/location.context";
-import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 import { Navigation } from "./src/infrastructure/navigation/index";
@@ -43,13 +40,7 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <FavouritesContextProvider>
-            <LocationContextSProvider>
-              <RestaurantsConextProvider>
-                <Navigation />
-              </RestaurantsConextProvider>
-            </LocationContextSProvider>
-          </FavouritesContextProvider>
+          <Navigation />
         </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />

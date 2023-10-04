@@ -18,7 +18,6 @@ export const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [repeatedPassowrd, setRepeatedPassword] = useState("");
   const { onRegister, isLoading, error } = useContext(AuthenticationContext);
-  console.log(error);
   return (
     <AccountBackground>
       <AccountCover />
