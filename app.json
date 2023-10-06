@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MealsToGo",
-    "slug": "MealsToGo",
+    "slug": "mealstogo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/ztm_icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -20,6 +22,18 @@
         "foregroundImage": "./assets/ztm_icon.png",
         "backgroundColor": "#ffffff"
       }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "71a974c1-9045-4eed-aa69-2008cbf554f9"
+      }
+    },
+    "owner": "ianxiao",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/71a974c1-9045-4eed-aa69-2008cbf554f9"
     }
   }
 }

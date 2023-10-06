@@ -9,8 +9,9 @@ import { Lato_400Regular } from "@expo-google-fonts/lato";
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 import { Navigation } from "./src/infrastructure/navigation/index";
-import { initializeApp } from "firebase/app";
+//import { initializeApp } from "firebase/app";
 
+/*
 const firebaseConfig = {
   apiKey: "AIzaSyDMyJS-zorGnprXCSwClEsy1UKX2IAz31g",
   authDomain: "mealstogo-8c501.firebaseapp.com",
@@ -22,6 +23,7 @@ const firebaseConfig = {
 
 //const app = initializeApp(firebaseConfig);
 initializeApp(firebaseConfig);
+*/
 
 export default function App() {
   const [oswaldLoaded] = useFonts({
