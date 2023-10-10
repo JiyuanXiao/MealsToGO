@@ -1,4 +1,5 @@
 import React from "react";
+import "react-native-gesture-handler";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
@@ -9,7 +10,6 @@ import { Lato_400Regular } from "@expo-google-fonts/lato";
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 import { Navigation } from "./src/infrastructure/navigation/index";
-import "react-native-gesture-handler";
 //import { initializeApp } from "firebase/app";
 
 /*
