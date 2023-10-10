@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MealsToGo",
+    "name": "MealsToGoTesting1220",
     "slug": "mealstogo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,11 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ianxiao.mealstogo"
     },
     "android": {
       "adaptiveIcon": {
