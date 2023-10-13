@@ -33,6 +33,12 @@
     },
     "updates": {
       "url": "https://u.expo.dev/71a974c1-9045-4eed-aa69-2008cbf554f9"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        { "cameraPermission": "Allow MealsToGo to access your camera" }
+      ]
+    ]
   }
 }
