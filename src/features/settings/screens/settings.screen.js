@@ -1,39 +1,22 @@
 import React, { useContext, useState } from "react";
 import { TouchableOpacity, Alert } from "react-native";
-import { List, Avatar, Modal, Portal, PaperProvider } from "react-native-paper";
+import { List, Avatar, Portal, PaperProvider } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
-import styled from "styled-components/native";
 import { SafeArea } from "../../../components/utility/safr-area.component";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-
-const SettingsItem = styled(List.Item)`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-const AvatarContainer = styled.View`
-  align-items: center;
-`;
-
-const FavouritesIcon = (props) => (
-  <List.Icon {...props} color="black" icon="heart" />
-);
-
-const LogoutIcon = (props) => (
-  <List.Icon {...props} color="black" icon="door" />
-);
-
-const CameraIcon = (props) => (
-  <List.Icon {...props} color="white" icon="camera" />
-);
-
-const AlbumsIcon = (props) => (
-  <List.Icon {...props} color="white" icon="image" />
-);
+import {
+  AvatarContainer,
+  ItemAlbums,
+  ItemFavourites,
+  ItemCamera,
+  ItemLogout,
+  ProfilePhotoEditingModal,
+} from "./settings.styled";
 
 export const SettingsScreen = ({ navigation }) => {
   const { onLogout, user } = useContext(AuthenticationContext);
@@ -43,16 +26,11 @@ export const SettingsScreen = ({ navigation }) => {
     Camera.useCameraPermissions();
 
   const showModal = () => setVisible(true);
+
   const hideModal = () => setVisible(false);
-  const containerStyle = {
-    backgroundColor: "black",
-    padding: 10,
-  };
 
   const getProfilePhoto = async (currentUser) => {
-    const photoUri = await AsyncStorage.getItem(
-      `${currentUser.uid}-photo-reviewed`
-    );
+    const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
     setPhoto(photoUri);
   };
 
@@ -64,19 +42,49 @@ export const SettingsScreen = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
-      AsyncStorage.setItem(`${user.uid}-photo-reviewed`, result.assets[0].uri);
-      hideModal();
+      AsyncStorage.setItem(`${user.uid}-photo`, result.assets[0].uri);
+      hideModal;
     }
   };
 
+  const launchCameraAndSaveImage = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      AsyncStorage.setItem(`${user.uid}-photo`, result.assets[0].uri);
+      hideModal;
+    }
+  };
+
+  const getCameraPermission = async () => {
+    requestCameraPermission().then((p) => {
+      if (!p.granted) {
+        Alert.alert(
+          "Camera Access Issue",
+          "Unable to grant camera access permission. Please allow camera access in device settings manually."
+        );
+      } else {
+        launchCameraAndSaveImage();
+      }
+    });
+  };
+
   const takePhoto = async () => {
-    if (!cameraPermission.granted) {
+    if (!cameraPermission) {
       Alert.alert(
-        "Access Permission Issue",
-        "Please allow camera access in device settings",
+        "Camera Access Issue",
+        "Cannot get camera permission status."
+      );
+    } else if (!cameraPermission.granted) {
+      Alert.alert(
+        "Camera Access Issue",
+        "Please click 'Get Permission' to grant camera access permission.",
         [
           {
             text: "Cancel",
@@ -86,25 +94,13 @@ export const SettingsScreen = ({ navigation }) => {
             style: "cancel",
           },
           {
-            text: "Ask Permission",
-            onPress: requestCameraPermission,
+            text: "Get Permission",
+            onPress: getCameraPermission,
           },
         ]
       );
-      return;
-    }
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.canceled) {
-      AsyncStorage.setItem(`${user.uid}-photo-reviewed`, result.assets[0].uri);
-      hideModal();
+    } else {
+      launchCameraAndSaveImage();
     }
   };
 
@@ -128,39 +124,22 @@ export const SettingsScreen = ({ navigation }) => {
           </TouchableOpacity>
         </AvatarContainer>
         <Portal>
-          <Modal
-            visible={visible}
-            onDismiss={hideModal}
-            contentContainerStyle={containerStyle}
-          >
+          <ProfilePhotoEditingModal visible={visible} onDismiss={hideModal}>
             <List.Section>
               <List.Subheader>Change Profile Photo</List.Subheader>
               <TouchableOpacity onPress={takePhoto}>
-                <List.Item
-                  title="Take Photo"
-                  titleStyle={{ color: "white" }}
-                  left={CameraIcon}
-                />
+                <ItemCamera />
               </TouchableOpacity>
               <TouchableOpacity onPress={pickImage}>
-                <List.Item
-                  title="Choose From Albums"
-                  titleStyle={{ color: "white" }}
-                  left={AlbumsIcon}
-                />
+                <ItemAlbums />
               </TouchableOpacity>
             </List.Section>
-          </Modal>
+          </ProfilePhotoEditingModal>
         </Portal>
 
         <List.Section>
-          <SettingsItem
-            title="Favourites"
-            description="View your favourites"
-            left={FavouritesIcon}
-            onPress={() => navigation.navigate("Favourites")}
-          />
-          <SettingsItem title="Logout" left={LogoutIcon} onPress={onLogout} />
+          <ItemFavourites onPress={() => navigation.navigate("Favourites")} />
+          <ItemLogout onPress={onLogout} />
         </List.Section>
       </PaperProvider>
     </SafeArea>
