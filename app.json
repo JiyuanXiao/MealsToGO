@@ -38,6 +38,11 @@
       [
         "expo-camera",
         { "cameraPermission": "Allow MealsToGo to access your camera" }
+      ],
+
+      [
+        "expo-image-picker",
+        { "photosPermission": "Allow MealsToGo to access your photos" }
       ]
     ]
   }

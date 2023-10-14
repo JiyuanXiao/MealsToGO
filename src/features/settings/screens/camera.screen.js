@@ -1,6 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import { Camera, CameraType } from "expo-camera";
-import { Button, View } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeArea } from "../../../components/utility/safr-area.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
@@ -54,6 +55,38 @@ export const CameraScreen = ({ navigation }) => {
     }
   };
 
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      AsyncStorage.setItem(`${user.uid}-photo-reviewed`, result.assets[0].uri);
+      navigation.navigate("Back");
+    }
+  };
+
+  const takePhoto = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      AsyncStorage.setItem(`${user.uid}-photo-reviewed`, result.assets[0].uri);
+      navigation.navigate("Back");
+    }
+  };
+
   return (
     <SafeArea>
       <ProfileCamera
@@ -61,7 +94,7 @@ export const CameraScreen = ({ navigation }) => {
         type={type}
       />
       <ControllBar>
-        <AccessPhotosButton onPress={() => null} />
+        <AccessPhotosButton onPress={pickImage} />
         <Shutter onPress={snap} />
         <FlipCameraButton onPress={toggleCameraType} />
       </ControllBar>
