@@ -44,7 +44,7 @@ export const SettingsScreen = ({ navigation }) => {
 
     if (!result.canceled) {
       AsyncStorage.setItem(`${user.uid}-photo`, result.assets[0].uri);
-      hideModal;
+      hideModal();
     }
   };
 
@@ -58,7 +58,7 @@ export const SettingsScreen = ({ navigation }) => {
 
     if (!result.canceled) {
       AsyncStorage.setItem(`${user.uid}-photo`, result.assets[0].uri);
-      hideModal;
+      hideModal();
     }
   };
 
