@@ -16,23 +16,20 @@ export const RestaurantsConextProvider = ({ children }) => {
   const retrieveRestaurants = (loc) => {
     setIsLoading(true);
     setRestaurants([]);
-    setTimeout(() => {
-      restaurantsRequest(loc)
-        .then(restaurantsTransform)
-        .then((result) => {
-          setRestaurants(result);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setError(err);
-        });
-    }, 2000);
+    restaurantsRequest(loc)
+      .then(restaurantsTransform)
+      .then((result) => {
+        setRestaurants(result);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+      });
   };
 
   useEffect(() => {
     if (location) {
       const locationString = `${location.lat},${location.lng}`;
-      console.log(locationString);
       retrieveRestaurants(locationString);
     }
   }, [location]);

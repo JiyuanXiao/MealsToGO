@@ -15,7 +15,6 @@ export const LocationContextSProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(keyword);
     if (!keyword) {
       return;
     }
@@ -24,12 +23,10 @@ export const LocationContextSProvider = ({ children }) => {
       .then((result) => {
         setIsLoading(false);
         setLocation(result);
-        console.log(result);
       })
       .catch((err) => {
         setIsLoading(false);
         setError(err);
-        console.log(err);
       });
   }, [keyword]);
 
