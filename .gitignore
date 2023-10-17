@@ -17,3 +17,6 @@ web-build/
 .metro-health-check*
 
 */node_modules/**/*
+firecase-debug.log
+ui-debug.log
+.runtimeconfig.json

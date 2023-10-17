@@ -1,24 +1,22 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
 const { onRequest } = require("firebase-functions/v2/https");
-//const logger = require("firebase-functions/logger");
 const { geocodeRequest } = require("./geocode");
 const { placesRequest } = require("./places");
+const { Client } = require("@googlemaps/google-maps-services-js");
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+const client = new Client({});
 
-exports.geocode = onRequest((request, response) => {
-  geocodeRequest(request, response);
-});
+const SECRETS_NAME = "GOOGLE_MAP_API";
 
-exports.placeNearby = onRequest((request, response) => {
-  placesRequest(request, response);
-});
+exports.geocode = onRequest(
+  { secrets: [SECRETS_NAME] },
+  (request, response) => {
+    geocodeRequest(request, response, client, process.env.GOOGLE_MAP_API);
+  }
+);
+
+exports.placeNearby = onRequest(
+  { secrets: [SECRETS_NAME] },
+  (request, response) => {
+    placesRequest(request, response, client, process.env.GOOGLE_MAP_API);
+  }
+);
