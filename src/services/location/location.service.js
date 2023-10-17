@@ -1,8 +1,9 @@
 import camelize from "camelize";
+import { isMock } from "../../utils/env";
 
 export const locaitonRequest = (searchTerm) => {
   return fetch(
-    `https://geocode-bs4dzalkaq-uc.a.run.app?city=${searchTerm}`
+    `https://geocode-bs4dzalkaq-uc.a.run.app?city=${searchTerm}&mock=${isMock}`
   ).then((res) => {
     return res.json();
   });

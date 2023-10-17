@@ -1,8 +1,9 @@
 import camelize from "camelize";
+import { isMock } from "../../utils/env";
 
 export const restaurantsRequest = (location) => {
   return fetch(
-    `https://placenearby-bs4dzalkaq-uc.a.run.app?location=${location}`
+    `https://placenearby-bs4dzalkaq-uc.a.run.app?location=${location}&mock=${isMock}`
   ).then((res) => {
     return res.json();
   });
