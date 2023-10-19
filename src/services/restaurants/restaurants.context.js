@@ -19,10 +19,12 @@ export const RestaurantsConextProvider = ({ children }) => {
     restaurantsRequest(loc)
       .then(restaurantsTransform)
       .then((result) => {
+        setError(null);
         setRestaurants(result);
         setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         setError(err);
       });
   };

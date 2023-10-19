@@ -21,10 +21,12 @@ export const LocationContextSProvider = ({ children }) => {
     locaitonRequest(keyword.toLowerCase())
       .then(locaitonTRansform)
       .then((result) => {
+        setError(null);
         setIsLoading(false);
         setLocation(result);
       })
       .catch((err) => {
+        setLocation(null);
         setIsLoading(false);
         setError(err);
       });

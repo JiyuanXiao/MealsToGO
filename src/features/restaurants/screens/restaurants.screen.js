@@ -5,7 +5,9 @@ import { RestaurantInfoCard } from "../components/restaurant-info-card.component
 import styled from "styled-components/native";
 import { SafeArea } from "../../../components/utility/safr-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
 import { FavouritesBar } from "../../../components/favourites/favourites-bar.component";
+import { LocationContext } from "../../../services/location/location.context";
 import { RestaurantsConext } from "../../../services/restaurants/restaurants.context";
 import { FavouritesContext } from "../../../services/favourites/favourites.context";
 import { Search } from "../components/search.component";
@@ -22,9 +24,15 @@ const LoadingContainer = styled.View`
 `;
 
 export const RestaurantScreen = ({ navigation }) => {
-  const { restaurants, isLoading } = useContext(RestaurantsConext);
+  const { error: locationError } = useContext(LocationContext);
+  const {
+    restaurants,
+    isLoading,
+    error: restaurantError,
+  } = useContext(RestaurantsConext);
   const { favourites } = useContext(FavouritesContext);
   const [isToggled, setIsToggled] = useState(false);
+  const hasError = !!restaurantError || !!locationError;
   return (
     <SafeArea>
       {isLoading && (
@@ -42,23 +50,30 @@ export const RestaurantScreen = ({ navigation }) => {
           onNavigate={navigation.navigate}
         />
       )}
-      <RestaurantList
-        data={restaurants}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("RestaurantDetail", { restaurant: item })
-              }
-            >
-              <Spacer position="bottom" size="large">
-                <RestaurantInfoCard restaurant={item} />
-              </Spacer>
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item.name}
-      />
+      <Spacer position="left" size="large">
+        {hasError && (
+          <Text variant="error">Something went worng retrieving data </Text>
+        )}
+      </Spacer>
+      {!hasError && (
+        <RestaurantList
+          data={restaurants}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("RestaurantDetail", { restaurant: item })
+                }
+              >
+                <Spacer position="bottom" size="large">
+                  <RestaurantInfoCard restaurant={item} />
+                </Spacer>
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.name}
+        />
+      )}
     </SafeArea>
   );
 };
