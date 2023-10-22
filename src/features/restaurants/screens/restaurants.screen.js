@@ -12,6 +12,7 @@ import { RestaurantsConext } from "../../../services/restaurants/restaurants.con
 import { FavouritesContext } from "../../../services/favourites/favourites.context";
 import { Search } from "../components/search.component";
 import { RestaurantList } from "../components/restaurants-list.styled";
+import { colors } from "../../../infrastructure/theme/colors";
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -37,7 +38,7 @@ export const RestaurantScreen = ({ navigation }) => {
     <SafeArea>
       {isLoading && (
         <LoadingContainer>
-          <Loading size={50} animating={true} color="tomato" />
+          <Loading size={50} animating={true} color={colors.brand.primary} />
         </LoadingContainer>
       )}
       <Search

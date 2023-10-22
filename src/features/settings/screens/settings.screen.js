@@ -3,7 +3,6 @@ import { TouchableOpacity, Alert } from "react-native";
 import { List, Avatar, Portal, PaperProvider } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
-import { SafeArea } from "../../../components/utility/safr-area.component";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
@@ -16,7 +15,10 @@ import {
   ItemCamera,
   ItemLogout,
   ProfilePhotoEditingModal,
+  SettingsBackground,
+  TransparentSafeArea,
 } from "./settings.styled";
+import { colors } from "../../../infrastructure/theme/colors";
 
 export const SettingsScreen = ({ navigation }) => {
   const { onLogout, user } = useContext(AuthenticationContext);
@@ -109,39 +111,45 @@ export const SettingsScreen = ({ navigation }) => {
   });
 
   return (
-    <SafeArea>
-      <PaperProvider>
-        <AvatarContainer>
-          <TouchableOpacity onPress={showModal}>
-            {photo ? (
-              <Avatar.Image size={180} source={{ uri: photo }} />
-            ) : (
-              <Avatar.Icon size={180} icon="human" backgorundColor="#2182BD" />
-            )}
-            <Spacer postion="top" size="large">
-              <Text variant="label">{user.email}</Text>
-            </Spacer>
-          </TouchableOpacity>
-        </AvatarContainer>
-        <Portal>
-          <ProfilePhotoEditingModal visible={visible} onDismiss={hideModal}>
-            <List.Section>
-              <List.Subheader>Change Profile Photo</List.Subheader>
-              <TouchableOpacity onPress={takePhoto}>
-                <ItemCamera />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={pickImage}>
-                <ItemAlbums />
-              </TouchableOpacity>
-            </List.Section>
-          </ProfilePhotoEditingModal>
-        </Portal>
+    <SettingsBackground>
+      <TransparentSafeArea>
+        <PaperProvider>
+          <AvatarContainer>
+            <TouchableOpacity onPress={showModal}>
+              {photo ? (
+                <Avatar.Image size={180} source={{ uri: photo }} />
+              ) : (
+                <Avatar.Icon
+                  size={180}
+                  icon="human"
+                  backgorundColor={colors.brand.primary}
+                />
+              )}
+              <Spacer postion="top" size="large">
+                <Text variant="label">{user.email}</Text>
+              </Spacer>
+            </TouchableOpacity>
+          </AvatarContainer>
+          <Portal>
+            <ProfilePhotoEditingModal visible={visible} onDismiss={hideModal}>
+              <List.Section>
+                <List.Subheader>Change Profile Photo</List.Subheader>
+                <TouchableOpacity onPress={takePhoto}>
+                  <ItemCamera />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={pickImage}>
+                  <ItemAlbums />
+                </TouchableOpacity>
+              </List.Section>
+            </ProfilePhotoEditingModal>
+          </Portal>
 
-        <List.Section>
-          <ItemFavourites onPress={() => navigation.navigate("Favourites")} />
-          <ItemLogout onPress={onLogout} />
-        </List.Section>
-      </PaperProvider>
-    </SafeArea>
+          <List.Section>
+            <ItemFavourites onPress={() => navigation.navigate("Favourites")} />
+            <ItemLogout onPress={onLogout} />
+          </List.Section>
+        </PaperProvider>
+      </TransparentSafeArea>
+    </SettingsBackground>
   );
 };
